@@ -1,0 +1,101 @@
+//
+//  main.cpp
+//  stack using pointers
+//
+//  Created by Sneha on 23/01/22.
+//
+
+#include <iostream>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* head;
+
+
+void push(int data){
+    struct Node* temp;
+    temp = new Node();
+    if (!temp)
+        {
+            std::cout << "\nHeap Overflow";
+            exit(1);
+        }
+    temp->data = data;
+    temp->next = head;
+    head=temp;
+}
+
+void pop()
+{
+    struct Node* temp;
+    if(head == NULL){
+        std::cout<<"No elements in the array";
+        return;
+    }
+    temp = head;
+    head = temp->next;
+    temp->next = NULL;
+    free(temp);
+}
+
+bool isEmpty()
+
+{
+    return (head==NULL);
+}
+
+void Search(int data)
+{
+    struct Node* temp;
+    if(head==NULL)
+    {
+        std::cout<<"Empty stack\n";
+        return;
+    }
+    temp = head;
+    int index=0;
+    while(temp!=NULL)
+    {
+        if(temp->data==data){
+            std::cout<<"The index of "<<data<<" is "<<index<<"\n";
+            return;
+        }
+            
+        temp=temp->next;
+        index++;
+    }
+    if(temp==NULL)
+    {
+        std::cout<<data <<" Not found\n";
+        return;
+    }
+    
+}
+
+void display()
+{
+    struct Node* temp;
+    temp = head;
+    while(temp != NULL){
+        std::cout<<temp->data <<"-> ";
+        temp=temp->next;
+    }
+    std::cout<<"X\n";
+}
+
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    std::cout<<(isEmpty()?"true\n":"false\n");
+    push(2);
+    push(3);
+    Search(3);
+    Search(4);
+    display();
+    pop();
+    display();
+    std::cout<<(isEmpty()?"true\n":"false\n");
+    return 0;
+}
